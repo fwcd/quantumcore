@@ -3,6 +3,7 @@ package com.fwcd.quantum.gates.unary;
 import com.fwcd.fructose.math.Complex;
 import com.fwcd.fructose.math.ComplexMatrix;
 import com.fwcd.quantum.gates.MatrixGate;
+import com.fwcd.quantum.gates.QuantumGateVisitor;
 
 public class SqrtNOTGate extends MatrixGate {
 	@Override
@@ -16,5 +17,10 @@ public class SqrtNOTGate extends MatrixGate {
 	@Override
 	public String getSymbol() {
 		return "sqrt(NOT)";
+	}
+	
+	@Override
+	public void accept(QuantumGateVisitor visitor) {
+		visitor.visitSqrtNOT(this);
 	}
 }

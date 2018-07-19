@@ -7,7 +7,6 @@ import com.fwcd.fructose.math.ComplexVector;
  * input and produces a new superposition vector as it's
  * output.
  */
-@FunctionalInterface
 public interface QuantumGate {
 	/**
 	 * Applies this quantum gate to a given vector.
@@ -17,6 +16,10 @@ public interface QuantumGate {
 	 * @return An output superposition
 	 */
 	ComplexVector apply(ComplexVector possibleStates, int qubitIndex);
+	
+	default void accept(QuantumGateVisitor visitor) {
+		visitor.visitGate(this);
+	}
 	
 	default String getSymbol() {
 		return "?";

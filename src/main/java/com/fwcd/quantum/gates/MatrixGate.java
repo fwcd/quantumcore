@@ -66,8 +66,6 @@ public abstract class MatrixGate implements QuantumGate {
 		
 		return result;
 	}
-
-	// TODO: See https://en.wikipedia.org/wiki/Quantum_gate - implement some gates
 	
 	/**
 	 * Fetches the permutation matrix for this gate.

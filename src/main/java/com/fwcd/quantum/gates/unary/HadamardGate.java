@@ -2,6 +2,7 @@ package com.fwcd.quantum.gates.unary;
 
 import com.fwcd.fructose.math.ComplexMatrix;
 import com.fwcd.quantum.gates.MatrixGate;
+import com.fwcd.quantum.gates.QuantumGateVisitor;
 
 /**
  * Inverts around the hypercomplex x+z-axis.
@@ -18,5 +19,10 @@ public class HadamardGate extends MatrixGate {
 	@Override
 	public String getSymbol() {
 		return "H";
+	}
+	
+	@Override
+	public void accept(QuantumGateVisitor visitor) {
+		visitor.visitHadamard(this);
 	}
 }
