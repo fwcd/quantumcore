@@ -1,12 +1,13 @@
 package com.fwcd.quantum.gates;
 
-import com.fwcd.fructose.math.ComplexMatrix;
-import com.fwcd.fructose.math.ComplexVector;
+import com.fwcd.fructose.math.Complex;
+import com.fwcd.fructose.math.Matrix;
+import com.fwcd.fructose.math.Vector;
 
 public class IncompatibleGateException extends RuntimeException {
 	private static final long serialVersionUID = -48723648763L;
 	
-	public IncompatibleGateException(String gateName, ComplexVector superpos, ComplexMatrix incompatibleMatrix) {
+	public IncompatibleGateException(String gateName, Vector<Complex> superpos, Matrix<Complex> incompatibleMatrix) {
 		super(
 				"The quantum gate "
 				+ gateName

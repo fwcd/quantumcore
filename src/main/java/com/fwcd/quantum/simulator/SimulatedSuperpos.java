@@ -1,15 +1,17 @@
 package com.fwcd.quantum.simulator;
 
 import com.fwcd.fructose.Distribution;
-import com.fwcd.fructose.math.ComplexVector;
+import com.fwcd.fructose.math.Vector;
+import com.fwcd.fructose.math.Complex;
 import com.fwcd.fructose.math.ExtMath;
+import com.fwcd.fructose.math.Numbers;
 import com.fwcd.quantum.core.QubitState;
 import com.fwcd.quantum.core.QubitSuperpos;
 import com.fwcd.quantum.gates.QuantumGate;
 
 public class SimulatedSuperpos implements QubitSuperpos {
 	private final int qubitsAmount;
-	private final ComplexVector possibleStates; // Contains the probabilities for the possible states; Size = 2 ^ amount of qubits
+	private final Vector<Complex> possibleStates; // Contains the probabilities for the possible states; Size = 2 ^ amount of qubits
 	
 	public SimulatedSuperpos(boolean... initialQubitValues) {
 		this(new SimulatedQState(initialQubitValues));
@@ -24,17 +26,17 @@ public class SimulatedSuperpos implements QubitSuperpos {
 	 */
 	public SimulatedSuperpos(QubitState state) {
 		qubitsAmount = state.qubitsAmount();
-		float[] probabilities = new float[(int) Math.pow(2, qubitsAmount)];
+		double[] probabilities = new double[(int) Math.pow(2, qubitsAmount)];
 		int givenState = state.toInt();
 		
 		for (int i=0; i<probabilities.length; i++) {
 			probabilities[i] = (i == givenState) ? 1 : 0;
 		}
 		
-		possibleStates = new ComplexVector(probabilities);
+		possibleStates = Numbers.complexVector(probabilities);
 	}
 	
-	private SimulatedSuperpos(ComplexVector possibleStates) {
+	private SimulatedSuperpos(Vector<Complex> possibleStates) {
 		this.possibleStates = possibleStates;
 		qubitsAmount = ExtMath.log2Floor(possibleStates.size());
 	}

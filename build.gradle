@@ -9,7 +9,7 @@ repositories {
 
 dependencies {
     api 'org.apache.commons:commons-math3:3.6.1'
-    implementation 'com.github.fwcd:Fructose:bc214640d74d7455dfacbb533f7c6cb14598ca18'
+    implementation 'com.github.fwcd:Fructose:844ef34e1cb4adb00bde63f39074f96f1f15bfee'
     implementation 'com.google.guava:guava:23.0'
     testImplementation 'junit:junit:4.12'
 }

@@ -1,6 +1,7 @@
 package com.fwcd.quantum.gates;
 
-import com.fwcd.fructose.math.ComplexVector;
+import com.fwcd.fructose.math.Complex;
+import com.fwcd.fructose.math.Vector;
 
 /**
  * A quantum gates takes a superposition vector as it's
@@ -15,7 +16,7 @@ public interface QuantumGate {
 	 * @param qubitIndex - The start qubit index of the qubits on which the gate will be applied
 	 * @return An output superposition
 	 */
-	ComplexVector apply(ComplexVector possibleStates, int qubitIndex);
+	Vector<Complex> apply(Vector<Complex> possibleStates, int qubitIndex);
 	
 	default void accept(QuantumGateVisitor visitor) {
 		visitor.visitGate(this);

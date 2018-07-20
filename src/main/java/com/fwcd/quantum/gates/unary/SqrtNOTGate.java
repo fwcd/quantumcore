@@ -1,17 +1,18 @@
 package com.fwcd.quantum.gates.unary;
 
 import com.fwcd.fructose.math.Complex;
-import com.fwcd.fructose.math.ComplexMatrix;
+import com.fwcd.fructose.math.Matrix;
+import com.fwcd.fructose.math.Numbers;
 import com.fwcd.quantum.gates.MatrixGate;
 import com.fwcd.quantum.gates.QuantumGateVisitor;
 
 public class SqrtNOTGate extends MatrixGate {
 	@Override
-	protected ComplexMatrix getMatrix() {
-		return new ComplexMatrix(new Complex[][] {
-				{new Complex(1, 1), new Complex(1, -1)},
-				{new Complex(1, -1), new Complex(1, 1)}
-		}).multiply(0.5F);
+	protected Matrix<Complex> getMatrix() {
+		return Numbers.complexMatrix(new double[][][] {
+				{{0.5, 0.5}, {0.5, -0.5}},
+				{{0.5, -0.5}, {0.5, 0.5}}
+		});
 	}
 
 	@Override

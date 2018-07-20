@@ -1,23 +1,25 @@
 package com.fwcd.quantum.gates;
 
-import com.fwcd.fructose.math.ComplexMatrix;
-import com.fwcd.fructose.math.ComplexVector;
+import com.fwcd.fructose.math.Complex;
+import com.fwcd.fructose.math.Vector;
 import com.fwcd.fructose.math.ExtMath;
+import com.fwcd.fructose.math.Matrix;
+import com.fwcd.fructose.math.Numbers;
 
 /**
  * A convenience class to represent matrix based
  * quantum gates.
  */
 public abstract class MatrixGate implements QuantumGate {
-	private final ComplexMatrix identity = new ComplexMatrix(new float[][] {
+	private final Matrix<Complex> identity = Numbers.complexMatrix(new double[][] {
 			{1, 0},
 			{0, 1}
 	});
-	private final ComplexMatrix matrix = getMatrix();
+	private final Matrix<Complex> matrix = getMatrix();
 	private final int minQubits = minQubits();
 	
 	@Override
-	public ComplexVector apply(ComplexVector possibleStates, int qubitIndex) {
+	public Vector<Complex> apply(Vector<Complex> possibleStates, int qubitIndex) {
 		int totalQubits = ExtMath.log2Floor(possibleStates.size());
 		
 		if (qubitIndex > (totalQubits - minQubits)) {
@@ -32,7 +34,7 @@ public abstract class MatrixGate implements QuantumGate {
 			);
 		}
 		
-		ComplexMatrix customMatrix = getCustomMatrix(totalQubits, qubitIndex);
+		Matrix<Complex> customMatrix = getCustomMatrix(totalQubits, qubitIndex);
 		try {
 			return customMatrix.multiply(possibleStates);
 		} catch (IllegalArgumentException e) {
@@ -41,12 +43,12 @@ public abstract class MatrixGate implements QuantumGate {
 		}
 	}
 
-	private ComplexMatrix getCustomMatrix(int totalQubits, int qubitIndex) {
-		ComplexMatrix result = null;
+	private Matrix<Complex> getCustomMatrix(int totalQubits, int qubitIndex) {
+		Matrix<Complex> result = null;
 		
 		int i = 0;
 		while (i < totalQubits) {
-			ComplexMatrix factor;
+			Matrix<Complex> factor;
 			
 			if (i == qubitIndex) {
 				factor = matrix;
@@ -58,7 +60,7 @@ public abstract class MatrixGate implements QuantumGate {
 			if (result == null) {
 				result = factor;
 			} else {
-				result = result.kroneckerProduct(factor);
+				result = result.tensorProduct(factor);
 			}
 			
 			i++;
@@ -72,7 +74,7 @@ public abstract class MatrixGate implements QuantumGate {
 	 * 
 	 * @return The permutation matrix
 	 */
-	protected abstract ComplexMatrix getMatrix();
+	protected abstract Matrix<Complex> getMatrix();
 	
 	public int minQubits() {
 		return ExtMath.log2Floor(matrix.width());

@@ -1,6 +1,8 @@
 package com.fwcd.quantum.gates.binary;
 
-import com.fwcd.fructose.math.ComplexMatrix;
+import com.fwcd.fructose.math.Complex;
+import com.fwcd.fructose.math.Matrix;
+import com.fwcd.fructose.math.Numbers;
 import com.fwcd.quantum.gates.MatrixGate;
 import com.fwcd.quantum.gates.QuantumGateVisitor;
 
@@ -13,8 +15,8 @@ import com.fwcd.quantum.gates.QuantumGateVisitor;
  */
 public class CNOTGate extends MatrixGate {
 	@Override
-	protected ComplexMatrix getMatrix() {
-		return new ComplexMatrix(new float[][] {
+	protected Matrix<Complex> getMatrix() {
+		return Numbers.complexMatrix(new double[][] {
 				{1, 0, 0, 0},
 				{0, 1, 0, 0},
 				{0, 0, 0, 1},

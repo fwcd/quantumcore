@@ -1,7 +1,7 @@
 package com.fwcd.quantum.gates.binary;
 
 import com.fwcd.fructose.math.Complex;
-import com.fwcd.fructose.math.ComplexMatrix;
+import com.fwcd.fructose.math.Matrix;
 import com.fwcd.quantum.gates.MatrixGate;
 import com.fwcd.quantum.gates.QuantumGateVisitor;
 
@@ -10,11 +10,11 @@ import com.fwcd.quantum.gates.QuantumGateVisitor;
  */
 public class SqrtSwapGate extends MatrixGate {
 	@Override
-	protected ComplexMatrix getMatrix() {
-		return new ComplexMatrix(new Complex[][] {
+	protected Matrix<Complex> getMatrix() {
+		return new Matrix<>(new Complex[][] {
 				{Complex.ONE, Complex.ZERO, Complex.ZERO, Complex.ZERO},
-				{Complex.ZERO, new Complex(0.5F, 0.5F), new Complex(0.5F, -0.5F), Complex.ZERO},
-				{Complex.ZERO, new Complex(0.5F, -0.5F), new Complex(0.5F, 0.5F), Complex.ZERO},
+				{Complex.ZERO, Complex.of(0.5, 0.5), Complex.of(0.5, -0.5), Complex.ZERO},
+				{Complex.ZERO, Complex.of(0.5, -0.5), Complex.of(0.5, 0.5), Complex.ZERO},
 				{Complex.ZERO, Complex.ZERO, Complex.ZERO, Complex.ONE}
 		});
 	}
