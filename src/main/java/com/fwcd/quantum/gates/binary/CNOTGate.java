@@ -1,10 +1,9 @@
 package com.fwcd.quantum.gates.binary;
 
-import com.fwcd.fructose.math.Complex;
-import com.fwcd.fructose.math.Matrix;
-import com.fwcd.fructose.math.Numbers;
 import com.fwcd.quantum.gates.MatrixGate;
 import com.fwcd.quantum.gates.QuantumGateVisitor;
+import com.fwcd.quantum.gates.StateMappingTable;
+import com.fwcd.quantum.wrapper.Ket;
 
 /**
  * Inverts the second input qubit if the first
@@ -15,13 +14,13 @@ import com.fwcd.quantum.gates.QuantumGateVisitor;
  */
 public class CNOTGate extends MatrixGate {
 	@Override
-	protected Matrix<Complex> getMatrix() {
-		return Numbers.complexMatrix(new double[][] {
-				{1, 0, 0, 0},
-				{0, 1, 0, 0},
-				{0, 0, 0, 1},
-				{0, 0, 1, 0}
-		});
+	protected StateMappingTable getMappings() {
+		return new StateMappingTable.Builder()
+			/* |00> */ .mapTo(Ket.ZERO, Ket.ZERO)
+			/* |01> */ .mapTo(Ket.ZERO, Ket.ONE)
+			/* |10> */ .mapTo(Ket.ONE, Ket.ONE)
+			/* |11> */ .mapTo(Ket.ONE, Ket.ZERO)
+			/* ---- */ .build();
 	}
 	
 	@Override

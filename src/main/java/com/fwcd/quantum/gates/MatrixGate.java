@@ -30,7 +30,7 @@ public abstract class MatrixGate implements QuantumGate {
 		return gateMatrix.multiply(quantumState);
 	}
 	
-	Matrix<Complex> createGateMatrix(int totalQubits, int[] qubitIndices) {
+	public Matrix<Complex> createGateMatrix(int totalQubits, int[] qubitIndices) {
 		// The output matrix is square-shaped
 		int matrixSideLength = (int) Math.pow(2, totalQubits);
 		List<List<Complex>> matrix = new ArrayList<>();
