@@ -3,6 +3,7 @@ package com.fwcd.quantum.wrapper;
 import com.fwcd.fructose.math.Complex;
 import com.fwcd.fructose.math.Numbers;
 import com.fwcd.fructose.math.Vector;
+import com.fwcd.quantum.core.ClassicalState;
 
 /**
  * Convenience class to create state vectors. The name is
@@ -14,6 +15,10 @@ public final class Ket {
 	public static final Vector<Complex> ZERO = Numbers.complexVector(1, 0);
 	
 	private Ket() {}
+	
+	public static Vector<Complex> of(int... bits) {
+		return ClassicalState.of(bits).asStateVector();
+	}
 	
 	public static Vector<Complex> ofBit(int bit) {
 		if (bit == 0) {
