@@ -9,9 +9,9 @@ import com.fwcd.quantum.gates.QuantumGateVisitor;
 /**
  * Performs a controlled swap of the last two bits.<br><br>
  * 
- * Also called FredkinGate.
+ * Also called CSwapGate.
  */
-public class CSwapGate extends MatrixGate {
+public class FredkinGate extends MatrixGate {
 	@Override
 	protected Matrix<Complex> getMatrix() {
 		return Numbers.complexMatrix(new double[][] {
@@ -33,6 +33,6 @@ public class CSwapGate extends MatrixGate {
 	
 	@Override
 	public void accept(QuantumGateVisitor visitor) {
-		visitor.visitCSwap(this);
+		visitor.visitFredkin(this);
 	}
 }

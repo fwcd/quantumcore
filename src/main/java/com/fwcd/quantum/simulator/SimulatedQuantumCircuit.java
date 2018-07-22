@@ -5,24 +5,24 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.fwcd.quantum.core.QuantumGateOperation;
-import com.fwcd.quantum.core.QubitState;
-import com.fwcd.quantum.core.QubitSuperpos;
+import com.fwcd.quantum.core.ClassicalState;
+import com.fwcd.quantum.core.QubitSuperposition;
 import com.fwcd.quantum.gates.QuantumGate;
 
 public class SimulatedQuantumCircuit implements Iterable<QuantumGateOperation> {
-	private QubitState inputState = new SimulatedQState();
+	private ClassicalState inputState = ClassicalState.empty();
 	private List<QuantumGateOperation> operations = new ArrayList<>();
 	
 	public void setInputQubit(int index, boolean value) {
 		inputState.getBits()[index] = value;
 	}
 	
-	public QubitState getInputState() {
+	public ClassicalState getInputState() {
 		return inputState;
 	}
 	
-	public int qubitsAmount() {
-		return inputState.qubitsAmount();
+	public int qubitCount() {
+		return inputState.bitCount();
 	}
 	
 	public void addQubit(boolean initialState) {
@@ -33,18 +33,18 @@ public class SimulatedQuantumCircuit implements Iterable<QuantumGateOperation> {
 		operations.add(new QuantumGateOperation(gate, qubitIndex));
 	}
 	
-	public QubitSuperpos compute() {
-		QubitSuperpos superpos = new SimulatedSuperpos(inputState);
+	public QubitSuperposition compute() {
+		QubitSuperposition superpos = new SimulatedSuperposition(inputState);
 		
 		for (QuantumGateOperation operation : operations) {
-			superpos = operation.apply(superpos);
+			operation.apply(superpos);
 		}
 		
 		return superpos;
 	}
 	
-	public QubitState computeResult() {
-		return compute().collapse();
+	public ClassicalState computeResult() {
+		return compute().measure();
 	}
 
 	@Override

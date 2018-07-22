@@ -12,11 +12,11 @@ public interface QuantumGate {
 	/**
 	 * Applies this quantum gate to a given vector.
 	 * 
-	 * @param possibleStates - The input superposition (or list of probabilities for possible qubit states)
-	 * @param qubitIndex - The start qubit index of the qubits on which the gate will be applied
+	 * @param quantumState - The input superposition (or list of probabilities for possible qubit states)
+	 * @param qubitIndices - The qubits in order to which this gate will be applied to
 	 * @return An output superposition
 	 */
-	Vector<Complex> apply(Vector<Complex> possibleStates, int qubitIndex);
+	Vector<Complex> apply(Vector<Complex> quantumState, int... qubitIndices);
 	
 	default void accept(QuantumGateVisitor visitor) {
 		visitor.visitGate(this);

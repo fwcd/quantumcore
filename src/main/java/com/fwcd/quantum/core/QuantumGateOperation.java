@@ -2,30 +2,26 @@ package com.fwcd.quantum.core;
 
 import com.fwcd.quantum.gates.QuantumGate;
 
-public class QuantumGateOperation implements QubitOperation {
+public class QuantumGateOperation implements QuantumOperation {
 	private final QuantumGate gate;
-	private final int qubitIndex;
+	private final int[] qubitIndices;
 	
-	public QuantumGateOperation(QuantumGate gate, int qubitIndex) {
+	public QuantumGateOperation(QuantumGate gate, int... qubitIndices) {
 		this.gate = gate;
-		this.qubitIndex = qubitIndex;
+		this.qubitIndices = qubitIndices;
 	}
 	
 	public QuantumGate getGate() {
 		return gate;
 	}
 	
-	public int getQubitIndex() {
-		return qubitIndex;
-	}
-	
 	@Override
-	public QubitSuperpos apply(QubitSuperpos superpos) {
-		return superpos.apply(gate, qubitIndex);
+	public void apply(QubitSuperposition superpos) {
+		superpos.apply(gate, qubitIndices);
 	}
 	
 	@Override
 	public String toString() {
-		return gate.getClass().getSimpleName() + " #" + Integer.toString(qubitIndex);
+		return gate.getClass().getSimpleName();
 	}
 }

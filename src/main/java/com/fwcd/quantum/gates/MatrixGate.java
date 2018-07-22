@@ -1,5 +1,7 @@
 package com.fwcd.quantum.gates;
 
+import java.util.Arrays;
+
 import com.fwcd.fructose.math.Complex;
 import com.fwcd.fructose.math.Vector;
 import com.fwcd.fructose.math.ExtMath;
@@ -11,72 +13,51 @@ import com.fwcd.fructose.math.Numbers;
  * quantum gates.
  */
 public abstract class MatrixGate implements QuantumGate {
-	private final Matrix<Complex> identity = Numbers.complexMatrix(new double[][] {
-			{1, 0},
-			{0, 1}
-	});
-	private final Matrix<Complex> matrix = getMatrix();
-	private final int minQubits = minQubits();
+	private final Vector<Complex>[][] mappings = getMappings();
+	private final int qubitCount = ExtMath.log2Floor(mappings.length);
 	
 	@Override
-	public Vector<Complex> apply(Vector<Complex> possibleStates, int qubitIndex) {
-		int totalQubits = ExtMath.log2Floor(possibleStates.size());
-		
-		if (qubitIndex > (totalQubits - minQubits)) {
-			throw new IllegalArgumentException(
-					"Qubit index "
-					+ Integer.toString(qubitIndex)
-					+ " too large for an input of "
-					+ Integer.toString(totalQubits)
-					+ " qubits and a gate requiring "
-					+ Integer.toString(minQubits)
-					+ " qubits!"
-			);
-		}
-		
-		Matrix<Complex> customMatrix = getCustomMatrix(totalQubits, qubitIndex);
-		try {
-			return customMatrix.multiply(possibleStates);
-		} catch (IllegalArgumentException e) {
-			// TODO: Rework this case
-			throw new IncompatibleGateException(getClass().getSimpleName(), possibleStates, matrix);
-		}
+	public Vector<Complex> apply(Vector<Complex> quantumState, int... qubitIndices) {
+		assertCorrectGateSize(qubitIndices.length);
+		Matrix<Complex> gateMatrix = createGateMatrix(qubitIndices);
+		return gateMatrix.multiply(quantumState);
 	}
-
-	private Matrix<Complex> getCustomMatrix(int totalQubits, int qubitIndex) {
-		Matrix<Complex> result = null;
+	
+	private Matrix<Complex> createGateMatrix(int... qubitIndices) {
 		
-		int i = 0;
-		while (i < totalQubits) {
-			Matrix<Complex> factor;
-			
-			if (i == qubitIndex) {
-				factor = matrix;
-				i += minQubits - 1;
-			} else {
-				factor = identity;
-			}
-			
-			if (result == null) {
-				result = factor;
-			} else {
-				result = result.tensorProduct(factor);
-			}
-			
-			i++;
-		}
-		
-		return result;
 	}
 	
 	/**
-	 * Fetches the permutation matrix for this gate.
+	 * <p>Fetches the mappings in a "truth table" form.
+	 * The outer array contains the "rows" of the mapped results.
+	 * Example of a 2-qubit identity gate:</p>
 	 * 
-	 * @return The permutation matrix
+	 * <pre>
+	 * |00> to [|0>, |0>],
+	 * |01> to [|0>, |1>],
+	 * |10> to [|1>, |0>],
+	 * |11> to [|1>, |1>]
+	 * </pre>
+	 * 
+	 * <p><b>Note for implementors:</b>
+	 * Kets can be conveniently created using States.ONE or States.ZERO.
+	 * The main difference between this approach and a matrix-based approach
+	 * is that this function yields the results of each mapping in
+	 * factorized form (they can then be combined as needed using the Kronecker product).</p>
 	 */
-	protected abstract Matrix<Complex> getMatrix();
+	protected abstract Vector<Complex>[][] getMappings();
 	
-	public int minQubits() {
-		return ExtMath.log2Floor(matrix.width());
+	private void assertCorrectGateSize(int inputQubitCount) {
+		if (qubitCount != inputQubitCount) {
+			throw new IllegalArgumentException(
+				"Tried to apply a "
+				+ getClass().getSimpleName()
+				+ " gate that operates on "
+				+ qubitCount
+				+ " qubits to "
+				+ inputQubitCount
+				+ " qubits"
+			);
+		}
 	}
 }

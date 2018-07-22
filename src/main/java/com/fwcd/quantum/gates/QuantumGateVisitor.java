@@ -3,8 +3,8 @@ package com.fwcd.quantum.gates;
 import com.fwcd.quantum.gates.binary.CNOTGate;
 import com.fwcd.quantum.gates.binary.SqrtSwapGate;
 import com.fwcd.quantum.gates.binary.SwapGate;
-import com.fwcd.quantum.gates.ternary.CCNOTGate;
-import com.fwcd.quantum.gates.ternary.CSwapGate;
+import com.fwcd.quantum.gates.ternary.ToffoliGate;
+import com.fwcd.quantum.gates.ternary.FredkinGate;
 import com.fwcd.quantum.gates.unary.HadamardGate;
 import com.fwcd.quantum.gates.unary.PauliXGate;
 import com.fwcd.quantum.gates.unary.PauliYGate;
@@ -20,9 +20,9 @@ public interface QuantumGateVisitor {
 	
 	default void visitSwap(SwapGate gate) { visitGate(gate); }
 	
-	default void visitCCNOT(CCNOTGate gate) { visitGate(gate); }
+	default void visitToffoli(ToffoliGate gate) { visitGate(gate); }
 	
-	default void visitCSwap(CSwapGate gate) { visitGate(gate); }
+	default void visitFredkin(FredkinGate gate) { visitGate(gate); }
 	
 	default void visitHadamard(HadamardGate gate) { visitGate(gate); }
 	

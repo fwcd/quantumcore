@@ -9,9 +9,9 @@ import com.fwcd.quantum.gates.QuantumGateVisitor;
 /**
  * If the first two bits are true it flips the third bit.<br><br>
  * 
- * Also called ToffoliGate.
+ * Also called CCNOTGate.
  */
-public class CCNOTGate extends MatrixGate {
+public class ToffoliGate extends MatrixGate {
 	@Override
 	protected Matrix<Complex> getMatrix() {
 		return Numbers.complexMatrix(new double[][] {
@@ -33,6 +33,6 @@ public class CCNOTGate extends MatrixGate {
 	
 	@Override
 	public void accept(QuantumGateVisitor visitor) {
-		visitor.visitCCNOT(this);
+		visitor.visitToffoli(this);
 	}
 }
