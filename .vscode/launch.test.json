@@ -1,0 +1,30 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "QuantumCore",
+                "projectName": "QuantumCore",
+                "workingDirectory": "/Users/fw/git/QuantumCore",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "QuantumCore",
+                "projectName": "QuantumCore",
+                "workingDirectory": "/Users/fw/git/QuantumCore",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}
