@@ -23,14 +23,14 @@ public abstract class MatrixGate implements QuantumGate {
 	
 	@Override
 	public Vector<Complex> apply(Vector<Complex> quantumState, int... qubitIndices) {
-		assertCorrectGateSize(qubitIndices.length);
 		int totalQubits = ExtMath.log2Floor(quantumState.size());
-		assertValidQubitIndices(totalQubits, qubitIndices);
 		Matrix<Complex> gateMatrix = createGateMatrix(totalQubits, qubitIndices);
 		return gateMatrix.multiply(quantumState);
 	}
 	
 	public Matrix<Complex> createGateMatrix(int totalQubits, int[] qubitIndices) {
+		assertCorrectGateSize(qubitIndices.length);
+		assertValidQubitIndices(totalQubits, qubitIndices);
 		// The output matrix is square-shaped
 		int matrixSideLength = (int) Math.pow(2, totalQubits);
 		List<List<Complex>> matrix = new ArrayList<>();
