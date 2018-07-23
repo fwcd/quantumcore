@@ -34,11 +34,18 @@ public final class TestUtils {
 		};
 	}
 	
+	public static void assertMatrixEquals(MatrixGate gate, double[][] complexMatrixOfReals) {
+		assertMatrixEquals(gate, Numbers.complexMatrix(complexMatrixOfReals));
+	}
+	
 	public static void assertMatrixEquals(MatrixGate gate, double[][][] complexMatrix) {
+		assertMatrixEquals(gate, Numbers.complexMatrix(complexMatrix));
+	}
+	
+	public static void assertMatrixEquals(MatrixGate gate, Matrix<Complex> expected) {
 		int qubits = gate.qubitCount();
 		int[] indices = ArrayUtils.intRange(0, qubits);
 		Matrix<Complex> mat = gate.createGateMatrix(qubits, indices);
-		
-		assertThat(mat, approxEquals(Numbers.complexMatrix(complexMatrix), 0.01D));
+		assertThat(mat, approxEquals(expected, 0.01D));
 	}
 }
