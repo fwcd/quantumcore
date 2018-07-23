@@ -4,7 +4,6 @@ import static com.fwcd.quantum.wrapper.QuantumGates.CNOT;
 import static com.fwcd.quantum.wrapper.QuantumGates.FREDKIN;
 import static com.fwcd.quantum.wrapper.QuantumGates.H;
 import static com.fwcd.quantum.wrapper.QuantumGates.SQRT_NOT;
-import static com.fwcd.quantum.wrapper.QuantumGates.SQRT_SWAP;
 import static com.fwcd.quantum.wrapper.QuantumGates.SWAP;
 import static com.fwcd.quantum.wrapper.QuantumGates.TOFFOLI;
 import static com.fwcd.quantum.wrapper.QuantumGates.X;
@@ -70,6 +69,4 @@ public class Qubit {
 	public void z() { apply(Z); }
 	
 	public void sqrtNot() { apply(SQRT_NOT); }
-	
-	public void sqrtSwap(Qubit target) { apply(SQRT_SWAP, target); }
 }

@@ -2,7 +2,6 @@ package com.fwcd.quantum.wrapper;
 
 import com.fwcd.quantum.gates.QuantumGate;
 import com.fwcd.quantum.gates.binary.CNOTGate;
-import com.fwcd.quantum.gates.binary.SqrtSwapGate;
 import com.fwcd.quantum.gates.binary.SwapGate;
 import com.fwcd.quantum.gates.ternary.FredkinGate;
 import com.fwcd.quantum.gates.ternary.ToffoliGate;
@@ -19,7 +18,6 @@ public final class QuantumGates {
 	public static final QuantumGate CNOT = new CNOTGate();
 	public static final QuantumGate H = new HadamardGate();
 	public static final QuantumGate SWAP = new SwapGate();
-	public static final QuantumGate SQRT_SWAP = new SqrtSwapGate();
 	public static final QuantumGate SQRT_NOT = new SqrtNOTGate();
 	public static final QuantumGate X = new PauliXGate();
 	public static final QuantumGate Y = new PauliYGate();

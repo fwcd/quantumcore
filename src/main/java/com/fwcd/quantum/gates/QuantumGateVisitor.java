@@ -1,7 +1,6 @@
 package com.fwcd.quantum.gates;
 
 import com.fwcd.quantum.gates.binary.CNOTGate;
-import com.fwcd.quantum.gates.binary.SqrtSwapGate;
 import com.fwcd.quantum.gates.binary.SwapGate;
 import com.fwcd.quantum.gates.ternary.FredkinGate;
 import com.fwcd.quantum.gates.ternary.ToffoliGate;
@@ -16,8 +15,6 @@ public interface QuantumGateVisitor {
 	void visitGate(QuantumGate gate);
 	
 	default void visitCNOT(CNOTGate gate) { visitGate(gate); }
-	
-	default void visitSqrtSwap(SqrtSwapGate gate) { visitGate(gate); }
 	
 	default void visitSwap(SwapGate gate) { visitGate(gate); }
 	
