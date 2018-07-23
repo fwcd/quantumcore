@@ -33,17 +33,17 @@ public abstract class MatrixGate implements QuantumGate {
 		assertValidQubitIndices(totalQubits, qubitIndices);
 		// The output matrix is square-shaped
 		int matrixSideLength = (int) Math.pow(2, totalQubits);
-		List<List<Complex>> matrix = new ArrayList<>();
+		List<List<Complex>> transposedMatrix = new ArrayList<>();
 		
-		for (int row=0; row<matrixSideLength; row++) {
-			// The row index can be interpreted as an input state in binary
-			matrix.add(createMatrixRow(row, totalQubits, qubitIndices));
+		for (int col=0; col<matrixSideLength; col++) {
+			// The col index can be interpreted as an input state in binary
+			transposedMatrix.add(createMatrixCol(col, totalQubits, qubitIndices));
 		}
 		
-		return new Matrix<>(matrix);
+		return new Matrix<>(transposedMatrix).transpose();
 	}
 	
-	private List<Complex> createMatrixRow(int binaryInputState, int totalQubits, int[] qubitIndices) {
+	private List<Complex> createMatrixCol(int binaryInputState, int totalQubits, int[] qubitIndices) {
 		int gateInputState = BitMath.extractBits(binaryInputState, totalQubits, qubitIndices);
 		List<Vector<Complex>> factors = mappings.mappedFactorsOf(gateInputState);
 		Vector<Complex> accumulated = null;
@@ -101,5 +101,9 @@ public abstract class MatrixGate implements QuantumGate {
 				+ " qubits"
 			);
 		}
+	}
+	
+	public int qubitCount() {
+		return qubitCount;
 	}
 }

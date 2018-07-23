@@ -11,4 +11,13 @@ public final class ArrayUtils {
 		}
 		return OptionalInt.empty();
 	}
+	
+	public static final int[] intRange(int inclusiveStart, int exclusiveEnd) {
+		int length = exclusiveEnd - inclusiveStart;
+		int[] range = new int[length];
+		for (int i=0; i<length; i++) {
+			range[i] = i + inclusiveStart;
+		}
+		return range;
+	}
 }

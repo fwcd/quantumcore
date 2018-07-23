@@ -1,6 +1,13 @@
 package com.fwcd.quantum.test;
 
+import static org.junit.Assert.assertThat;
+
+import com.fwcd.fructose.math.Complex;
+import com.fwcd.fructose.math.Matrix;
+import com.fwcd.fructose.math.Numbers;
 import com.fwcd.fructose.operations.ToleranceEquatable;
+import com.fwcd.quantum.gates.MatrixGate;
+import com.fwcd.quantum.utils.ArrayUtils;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -25,5 +32,13 @@ public final class TestUtils {
 						.appendValue(expected);
 			}
 		};
+	}
+	
+	public static void assertMatrixEquals(MatrixGate gate, double[][][] complexMatrix) {
+		int qubits = gate.qubitCount();
+		int[] indices = ArrayUtils.intRange(0, qubits);
+		Matrix<Complex> mat = gate.createGateMatrix(qubits, indices);
+		
+		assertThat(mat, approxEquals(Numbers.complexMatrix(complexMatrix), 0.01D));
 	}
 }

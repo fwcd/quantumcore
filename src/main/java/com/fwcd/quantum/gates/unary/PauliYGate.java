@@ -1,20 +1,22 @@
 package com.fwcd.quantum.gates.unary;
 
 import com.fwcd.fructose.math.Complex;
-import com.fwcd.fructose.math.Matrix;
+import com.fwcd.fructose.math.Vector;
 import com.fwcd.quantum.gates.MatrixGate;
 import com.fwcd.quantum.gates.QuantumGateVisitor;
+import com.fwcd.quantum.gates.StateMappingTable;
+import com.fwcd.quantum.wrapper.Ket;
 
 /**
  * Inverts around the hypercomplex y-axis.
  */
 public class PauliYGate extends MatrixGate {
 	@Override
-	protected Matrix<Complex> getMatrix() {
-		return new Matrix<Complex>(new Complex[][] {
-				{Complex.ZERO, Complex.I.invertImag()},
-				{Complex.I, Complex.ZERO}
-		});
+	protected StateMappingTable getMappings() {
+		return new StateMappingTable.Builder()
+			/* |0> */ .mapTo(Ket.ONE.multiply(Complex.I))
+			/* |1> */ .mapTo(Ket.ZERO.multiply(Complex.I.negate()))
+			/* --- */ .build();
 	}
 
 	@Override

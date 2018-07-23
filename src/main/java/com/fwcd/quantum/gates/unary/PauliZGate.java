@@ -1,21 +1,21 @@
 package com.fwcd.quantum.gates.unary;
 
 import com.fwcd.fructose.math.Complex;
-import com.fwcd.fructose.math.Matrix;
-import com.fwcd.fructose.math.Numbers;
 import com.fwcd.quantum.gates.MatrixGate;
 import com.fwcd.quantum.gates.QuantumGateVisitor;
+import com.fwcd.quantum.gates.StateMappingTable;
+import com.fwcd.quantum.wrapper.Ket;
 
 /**
  * Inverts around the hypercomplex z-axis.
  */
 public class PauliZGate extends MatrixGate {
 	@Override
-	protected Matrix<Complex> getMatrix() {
-		return Numbers.complexMatrix(new double[][] {
-				{1, 0},
-				{0, -1}
-		});
+	protected StateMappingTable getMappings() {
+		return new StateMappingTable.Builder()
+			/* |0> */ .mapTo(Ket.ZERO)
+			/* |1> */ .mapTo(Ket.ONE.negate())
+			/* --- */ .build();
 	}
 
 	@Override
