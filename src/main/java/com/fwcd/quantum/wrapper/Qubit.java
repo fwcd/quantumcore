@@ -37,8 +37,11 @@ public class Qubit {
 	private void apply(QuantumGate gate, Qubit... others) {
 		assertSameSuperposition(others);
 		int[] indices = new int[others.length + 1];
-		indices[0] = index;
-		System.arraycopy(others, 0, indices, 1, others.length);
+		int i = 0;
+		indices[i++] = index;
+		for (Qubit other : others) {
+			indices[i++] = other.index;
+		}
 		superposition.apply(gate, indices);
 	}
 	

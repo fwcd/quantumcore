@@ -20,6 +20,10 @@ public class SimulatedSuperposition implements QubitSuperposition {
 	/** Contains the probabilities for the possible states; Size = 2^qubitCount */
 	private Vector<Complex> state;
 	
+	public SimulatedSuperposition(int... initialQubitValues) {
+		this(ClassicalState.of(initialQubitValues));
+	}
+	
 	public SimulatedSuperposition(boolean... initialQubitValues) {
 		this(ClassicalState.of(initialQubitValues));
 	}
@@ -43,9 +47,13 @@ public class SimulatedSuperposition implements QubitSuperposition {
 		this.state = Numbers.complexVector(probabilities);
 	}
 	
-	private SimulatedSuperposition(Vector<Complex> possibleStates) {
-		this.state = possibleStates;
-		qubitCount = ExtMath.log2Floor(possibleStates.size());
+	public SimulatedSuperposition(Vector<Complex> state) {
+		this.state = state;
+		qubitCount = ExtMath.log2Floor(state.size());
+		
+		if (!isValid(0.01D)) {
+			throw new IllegalArgumentException("Tried to create a simulated superposition from the invalid state vector " + state);
+		}
 	}
 	
 	@Override
