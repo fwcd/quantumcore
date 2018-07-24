@@ -1,7 +1,6 @@
 package com.fwcd.quantum.gates.unary;
 
 import com.fwcd.fructose.math.Complex;
-import com.fwcd.fructose.math.Vector;
 import com.fwcd.quantum.gates.MatrixGate;
 import com.fwcd.quantum.gates.QuantumGateVisitor;
 import com.fwcd.quantum.gates.StateMappingTable;

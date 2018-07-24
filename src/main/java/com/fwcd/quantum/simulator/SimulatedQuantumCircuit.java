@@ -29,8 +29,8 @@ public class SimulatedQuantumCircuit implements Iterable<QuantumGateOperation> {
 		inputState = inputState.withBit(initialState);
 	}
 	
-	public void addOperation(QuantumGate gate, int qubitIndex) {
-		operations.add(new QuantumGateOperation(gate, qubitIndex));
+	public void addGate(QuantumGate gate, int... qubitIndices) {
+		operations.add(new QuantumGateOperation(gate, qubitIndices));
 	}
 	
 	public QubitSuperposition compute() {
