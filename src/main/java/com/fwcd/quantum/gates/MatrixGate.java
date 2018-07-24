@@ -103,6 +103,7 @@ public abstract class MatrixGate implements QuantumGate {
 		}
 	}
 	
+	@Override
 	public int qubitCount() {
 		return qubitCount;
 	}

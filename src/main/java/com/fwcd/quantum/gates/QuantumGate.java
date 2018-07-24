@@ -4,7 +4,7 @@ import com.fwcd.fructose.math.Complex;
 import com.fwcd.fructose.math.Vector;
 
 /**
- * A quantum gates takes a superposition vector as it's
+ * A quantum gate takes a superposition vector as it's
  * input and produces a new superposition vector as it's
  * output.
  */
@@ -17,6 +17,9 @@ public interface QuantumGate {
 	 * @return An output superposition
 	 */
 	Vector<Complex> apply(Vector<Complex> quantumState, int... qubitIndices);
+	
+	/** The amount of qubits this gate operates on. */
+	int qubitCount();
 	
 	default void accept(QuantumGateVisitor visitor) {
 		visitor.visitGate(this);
