@@ -1,0 +1,37 @@
+package fwcd.quantum.gates.ternary;
+
+import fwcd.quantum.gates.MatrixGate;
+import fwcd.quantum.gates.QuantumGateVisitor;
+import fwcd.quantum.gates.StateMappingTable;
+import fwcd.quantum.wrapper.Ket;
+
+/**
+ * If the first two bits are true it flips the third bit.<br><br>
+ * 
+ * Also called CCNOTGate.
+ */
+public class ToffoliGate extends MatrixGate {
+	@Override
+	protected StateMappingTable getMappings() {
+		return new StateMappingTable.Builder()
+			/* |000> */ .mapTo(Ket.ZERO, Ket.ZERO, Ket.ZERO)
+			/* |001> */ .mapTo(Ket.ZERO, Ket.ZERO, Ket.ONE)
+			/* |010> */ .mapTo(Ket.ZERO, Ket.ONE, Ket.ZERO)
+			/* |011> */ .mapTo(Ket.ZERO, Ket.ONE, Ket.ONE)
+			/* |100> */ .mapTo(Ket.ONE, Ket.ZERO, Ket.ZERO)
+			/* |101> */ .mapTo(Ket.ONE, Ket.ZERO, Ket.ONE)
+			/* |110> */ .mapTo(Ket.ONE, Ket.ONE, Ket.ONE)
+			/* |111> */ .mapTo(Ket.ONE, Ket.ONE, Ket.ZERO)
+			/* ---- */ .build();
+	}
+	
+	@Override
+	public String getSymbol() {
+		return "CCNOT";
+	}
+	
+	@Override
+	public void accept(QuantumGateVisitor visitor) {
+		visitor.visitToffoli(this);
+	}
+}
