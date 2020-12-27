@@ -1,8 +1,8 @@
 ![QuantumCore](logo.png)
 
-A quantum computing library for Java.
+[![Build](https://github.com/fwcd/quantumcore/workflows/Build/badge.svg)](https://github.com/fwcd/quantumcore/actions)
 
-[![Build Status](https://travis-ci.org/fwcd/quantumcore.svg?branch=master)](https://travis-ci.org/fwcd/quantumcore)
+A quantum computing library for Java.
 
 The library is modeled after the paper ["Emulating Circuit-Based and Measurement-Based Quantum Computation"](https://www.doc.ic.ac.uk/teaching/distinguished-projects/2010/s.allcock.pdf).
 
